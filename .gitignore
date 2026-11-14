@@ -1,0 +1,22 @@
+# Data and outputs live in the shared Google Drive, not in git
+data/**
+!data/**/
+!data/**/.gitkeep
+outputs/**
+!outputs/.gitkeep
+*.pkl
+*.joblib
+
+# Python / Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.venv/
+venv/
+.env
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

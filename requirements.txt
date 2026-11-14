@@ -1,0 +1,13 @@
+# Python 3.10–3.12. Install: pip install -r requirements.txt
+# After MM installs once, replace these lines with exact versions
+# (pip freeze | grep -iE "pandas|pythainlp|scikit-learn|gensim|bertopic|matplotlib|wordcloud")
+# so everyone has the same versions.
+pandas
+pythainlp
+scikit-learn
+gensim
+bertopic
+sentence-transformers
+matplotlib
+wordcloud
+openpyxl
