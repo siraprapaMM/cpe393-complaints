@@ -55,9 +55,47 @@ Later steps **add columns, keep `review_id`**.
 | `src/07_evaluate.py` | Hand-label evaluation (step 7) | F | labeling sheet + topics | `outputs/evaluation/` |
 | `src/08_summaries.py` | Per-category summaries (step 8) | F + E | `outputs/topics/` | `outputs/summaries/` |
 
+## Preprocessing outputs (B — Amm)
+
+### `src/02_clean.py` → `data/processed/{train,val,test,three_star}_clean.csv`
+Same columns as `data/splits/*.csv` (`review_id, text, stars, label`), plus:
+
+| column | meaning |
+|---|---|
+| `text_clean` | cleaned text, not tokenized (use for BERTopic) |
+| `tokens` | space-separated tokens, stopwords removed, negations kept (use for TF-IDF / LDA) |
+| `n_tokens` | number of tokens (0 = empty after cleaning; rows are kept so `review_id` and the test set size do not change) |
+
+Cleaning: lowercase, remove URLs / HTML / emoji / punctuation, PyThaiNLP `normalize`, collapse repeated letters (`อร่อยยยย` → `อร่อย`), `55555` → `555`, tokenize with `newmm`, remove stopwords **except** negation and complaint words (`ไม่, ไม่ได้, ไม่ค่อย, ไม่มี, ไม่เคย, ไม่ใช่, ยัง, น้อย, เกิน, หมด, ช้า, นาน, มาก, แค่, เลย`).
+
+### `src/05_sentences.py` → `data/processed/complaint_sentences.csv`
+One row per sentence from 1–2★ reviews (`label == 1`) of train, val and test.
+Positive sentences inside low-star reviews are **kept** (they are labeled "Not a complaint" in step 6).
+
+| column | meaning |
+|---|---|
+| `sentence_id` | unique sentence id (use as ID in the labeling sheet) |
+| `review_id` | source review (join key) |
+| `sent_idx` | position of the sentence inside its review (starts at 0) |
+| `split` | train / val / test |
+| `stars` | stars of the source review (1 or 2) |
+| `sentence_raw` | original sentence (for human labelers) |
+| `sentence` | cleaned sentence (use for BERTopic) |
+| `tokens` | space-separated tokens (use for LDA) |
+
+Sentences are split from the **raw** text (before cleaning, because cleaning removes `!`, `?` and line breaks), first by regex, then with PyThaiNLP `crfcut`. Sentences with fewer than 2 tokens are dropped (`--min-tokens`).
+
+### Notes
+- `review_id` is not in order in these files: it is the row number in the raw file and the split is random. Do not renumber it.
+- `05_sentences.py` needs one extra package: `pip install python-crfsuite`.
+- `05_sentences.py` reuses `clean_text` and `tokenize` from `02_clean.py`, so keep both files in `src/`.
+- `05_sentences.py` does not depend on the classifier (04); it can run right after `02`.
+
 ## Run everything
 ```bash
 python src/01_prepare_data.py --input data/raw/w_review_train.csv
 python src/02_clean.py
-# ... 03 to 08 in order
+# ... 03 to 04 in order
+python src/05_sentences.py
+# ... 06 to 08 in order
 ```
