@@ -91,11 +91,54 @@ Sentences are split from the **raw** text (before cleaning, because cleaning rem
 - `05_sentences.py` reuses `clean_text` and `tokenize` from `02_clean.py`, so keep both files in `src/`.
 - `05_sentences.py` does not depend on the classifier (04); it can run right after `02`.
 
+## Exploration outputs (C — Pang)
+
+### `src/03_explore.py` → `outputs/figures/`
+Reads `data/processed/{train,val,test,three_star}_clean.csv`, writes six PNGs plus
+`exploration_summary.md` (all the numbers, ready to paste into the report).
+
+| file | what it shows | data used |
+|---|---|---|
+| `fig01_star_distribution.png` | star ratings, grouped into the two classes | all four files |
+| `fig02_review_length.png` | length by class, and by star rating | train / all four |
+| `fig03_top_words.png` | most common words per class, as % of reviews | train |
+| `fig04_distinctive_words.png` | words leaning to one class (log-odds ratio) | train |
+| `fig05_wordcloud_complaint.png` | word cloud, complaints | train |
+| `fig06_wordcloud_not_complaint.png` | word cloud, non-complaints | train |
+
+Word-level figures use **train only**, so val and test stay unseen and nothing we
+notice here can leak into how the later steps are tuned.
+
+Options: `--font` (path to a Thai .ttf), `--top-n` (fig03, default 20),
+`--top-n-distinct` (fig04, per side, default 12), `--min-count` (fig04 cut-off,
+default 50), `--max-words` (word clouds, default 120).
+
+### What the charts show
+- Complaints are **8.1%** of the labeled data (5.7% of all reviews). Step 3 should
+  use class weighting and report macro-F1, not accuracy.
+- 3★ is **30.4%** of the dataset, all held out of training.
+- Complaints are longer: median **63** tokens against **52**.
+- Positive words fill the complaint reviews: อร่อย is in **50.2%** of them, and the
+  top-20 word lists of the two classes are nearly the same. This is why step 6 works
+  on sentences and needs a "Not a complaint" category.
+- fig04 already previews the root causes: แย่มาก, เซ็ง, แมลงวัน, เช็คบิล, ปรับปรุง.
+
+### Notes
+- Thai text needs a Thai font. The script looks for one on Windows, macOS and Linux;
+  if the charts come out as empty boxes, pass your own:
+  `python src/03_explore.py --font "C:/Windows/Fonts/leelawui.ttf"`.
+- It reads only the `tokens` column, so it does not need PyThaiNLP. pandas,
+  matplotlib and wordcloud are enough, and all three are already in requirements.txt.
+- Negation is a separate token, so "ไม่สนิท" shows up as สนิท on its own in fig04.
+  Worth a line in the report's limitations.
+- `outputs/` is gitignored: the figures go to the Drive folder, not into git.
+
 ## Run everything
 ```bash
 python src/01_prepare_data.py --input data/raw/w_review_train.csv
 python src/02_clean.py
-# ... 03 to 04 in order
+python src/03_explore.py
+# ... 04 ...
 python src/05_sentences.py
 # ... 06 to 08 in order
 ```
