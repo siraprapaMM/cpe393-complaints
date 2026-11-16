@@ -133,12 +133,60 @@ default 50), `--max-words` (word clouds, default 120).
   Worth a line in the report's limitations.
 - `outputs/` is gitignored: the figures go to the Drive folder, not into git.
 
+## Classifier outputs (D — Van)
+
+### `src/04_classifier.py` → `outputs/classifier/`
+Reads `data/processed/{train,val,test,three_star}_clean.csv`. Runs on its own in about 13 minutes.
+
+**Features**: TF-IDF word n-grams on `tokens` (split on spaces, no re-tokenizing) +
+TF-IDF `char_wb` n-grams on `text_clean`, both with `sublinear_tf=True`.
+**Models**: Logistic Regression (`liblinear`) and Linear SVM, both `class_weight="balanced"`, `random_state=42`.
+
+**Protocol**: everything is fit on **train only**. Word n-grams (1,1)/(1,2)/(1,3), char n-grams
+(2,4)/(3,5), C and the decision threshold are chosen on **val** by macro-F1. The better model is
+chosen on **val**, not test. **Test** is scored once per model.
+
+| file | what it holds |
+|---|---|
+| `metrics_summary.md` | all the numbers below, ready to paste into the report |
+| `val_tuning.csv` | every n-gram / C combination tried, scored on val |
+| `threshold_tuning.csv` | chosen settings and threshold for each model |
+| `model_comparison.csv` | LR vs SVM on val and test, at threshold 0 and at the tuned threshold |
+| `classification_report_{lr,svm}.csv` | per-class precision / recall / F1 on test |
+| `confusion_matrix_{lr,svm}.png` / `.csv` | test confusion matrices |
+| `top_features_{lr,svm}.csv` | top 25 word and char n-grams per class (by coefficient) |
+| `three_star_predictions.csv` | `review_id, stars, score, pred_complaint` for every 3★ review |
+| `three_star_summary.csv` | how many 3★ reviews are predicted as complaints |
+
+### Results
+| model | settings (val) | test macro-F1 | complaint P | complaint R | complaint F1 |
+|---|---|---|---|---|---|
+| **Linear SVM** (selected) | word (1,2) + char (3,5), C=0.3 | **0.8724** | 0.818 | 0.717 | 0.764 |
+| Logistic Regression | word (1,3) + char (3,5), C=100 | 0.8781 | 0.805 | 0.748 | 0.775 |
+
+- **SVM is the selected model** because its val macro-F1 is higher (0.8643 vs 0.8626). LR scores
+  slightly higher on test, but switching models after seeing test would leak test into the choice.
+  The two are within about 0.006 of each other, so treat them as equal in the report.
+- Accuracy is about 96% for both, but it is not the main metric: always predicting "not complaint"
+  already gives 92%.
+- Top complaint words: ไม่ อร่อย, แย่, จืด, รสชาติ ธรรมดา, ไม่ ประทับใจ, ไม่ สด, ไม่ คุ้ม.
+  Top non-complaint words: อร่อย, ชอบ, ไม่ ผิดหวัง, อร่อย มาก, เด็ด.
+  Word bigrams catch negation (`ไม่ อร่อย`), which single words miss (see the fig04 note above).
+- **3★ reviews**: **1,845 of 12,171 (15.2%)** are predicted as complaints. Join on `review_id`.
+
+### Notes
+- It needs only pandas, scikit-learn and matplotlib (no PyThaiNLP), all in requirements.txt.
+- Empty `tokens` (`n_tokens = 0`) are filled with `""`; no rows are dropped.
+- For LR, the best C is the top of the grid (100), but val macro-F1 only moves by about 0.001
+  between C = 10 and 100, so going higher is not worth the extra run time.
+- `outputs/classifier/` is gitignored: upload the whole folder to the Drive.
+
 ## Run everything
 ```bash
 python src/01_prepare_data.py --input data/raw/w_review_train.csv
 python src/02_clean.py
 python src/03_explore.py
-# ... 04 ...
+python src/04_classifier.py
 python src/05_sentences.py
 # ... 06 to 08 in order
 ```
