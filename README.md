@@ -181,6 +181,74 @@ chosen on **val**, not test. **Test** is scored once per model.
   between C = 10 and 100, so going higher is not worth the extra run time.
 - `outputs/classifier/` is gitignored: upload the whole folder to the Drive.
 
+## Topic and category outputs (E — Gim)
+
+### `src/06_topics.py` → `outputs/topics/`
+Reads `data/processed/complaint_sentences.csv`, plus `train_clean.csv` and
+`outputs/classifier/threshold_tuning.csv` to re-fit D's selected classifier.
+First run about 20 min on a laptop CPU (embeddings, LDA grid), later runs about 3 min (cached).
+
+**Handoff files**
+
+| file | what it holds |
+|---|---|
+| `categories.csv` | final category list: `category_id`, `category`, `description` (for the labeling sheet), counts, share of complaint sentences, 1★ / 2★ shares, distinctive terms, 3 example quotes |
+| `sentence_assignments.csv` | one row per sentence of `complaint_sentences.csv`: `sentence_id`, `review_id`, `sent_idx`, `split`, `stars`, `sentence_raw`, `sentence`, `topic`, `topic_label`, `bertopic_outlier`, `aspect`, `complaint_score`, `is_complaint`, **`category`** |
+
+Other files: `topics_summary.md` (all numbers for report section 6, ready to paste),
+`topic_to_category.csv` (each raw topic → category, with matched keywords and examples),
+`bertopic_topics.csv`, `lda_topics.csv`, `lda_grid.csv`, `model_comparison.csv`.
+
+**Method**
+1. Topic models use B's `tokens` minus negations, intensifiers, pronouns and particles
+   (they carry polarity, not the cause), and only words in ≥ 5 sentences.
+2. **LDA** (gensim) for K = 5–25, best by c_v → K = 8.
+   **BERTopic**: `paraphrase-multilingual-mpnet-base-v2` embeddings of `sentence` → UMAP → HDBSCAN
+   (min cluster 60) → 100 topics; noise sentences go to their nearest topic.
+   Both are scored with the same gensim coherence on the same corpus.
+3. **BERTopic is chosen.** LDA has higher coherence (c_v 0.443 vs 0.378), but its 8 topics each mix
+   several causes; BERTopic separates waiting, staff, price, portion, insects, toilets, billing, heat, ...
+4. **Category** = the topic's category (keyword lists in `CATEGORIES`, written after reading the
+   topics; matched on keywords, not topic numbers) **if** D's classifier scores the sentence above
+   D's threshold; otherwise **Not a complaint**. Clusters group by subject, not sentiment, so this
+   is what separates "อร่อย" from "ไม่อร่อย".
+
+### Results (33,246 sentences, 9,450 scored as complaints)
+| category | share of complaint sentences |
+|---|---|
+| Food taste or quality | 41.9% |
+| Other (dissatisfaction with no stated cause, or unlisted) | 32.9% |
+| Price or value | 9.6% |
+| Staff behavior | 5.4% |
+| Slow service or long wait | 5.1% |
+| Atmosphere or facilities | 2.4% |
+| Order or billing error | 1.4% |
+| Cleanliness | 1.2% |
+
+The other 23,796 sentences (71.6%) are **Not a complaint**.
+
+### Changes to the planned category list (guide section 6)
+- **Order or billing error** replaces "Wrong or missing order": no wrong-order topic emerged; a payment / bill topic did.
+- **Atmosphere or facilities** added: heat, air-con, seating, parking and noise form clear topics.
+
+### Notes for F (step 7)
+- Sample the 120 rows from `complaint_sentences.csv`; use `sentence_id` as the sheet ID and the names and
+  descriptions from `categories.csv` as the label options. Compare with `category` in
+  `sentence_assignments.csv`. Do not tune `06_topics.py` on those labels.
+- `bertopic_outlier = 1` marks sentences HDBSCAN left unclustered (35%); useful for error analysis.
+
+### Notes
+- Uses scikit-learn's `HDBSCAN`, not the `hdbscan` package, so nothing needs compiling.
+- Tokenizer issue found: newmm splits "ชามละ" (per bowl) into ชา | มละ (same for ชิมละ, ขนมละ), so the
+  junk token "มละ" topped the price topic. `06_topics.py` repairs it for the topic models only
+  (`fix_mla`: ชา + มละ → ชาม). It also occurs 239 times in `train_clean.csv`; a proper fix would be a
+  custom dictionary in `02_clean.py` (B).
+- Runs are deterministic on one machine (seed 42). On another machine UMAP can give slightly
+  different topics and topic numbers; categories are matched by keyword, not topic number, so the
+  category list stays the same, but a few sentence assignments may change. Use the Drive copy of
+  `sentence_assignments.csv` for steps 7–8 so everyone works from the same file.
+- Upload `outputs/topics/` to the Drive **without `cache/`** (≈100 MB of embeddings; it is rebuilt).
+
 ## Run everything
 ```bash
 python src/01_prepare_data.py --input data/raw/w_review_train.csv
@@ -188,5 +256,6 @@ python src/02_clean.py
 python src/03_explore.py
 python src/04_classifier.py
 python src/05_sentences.py
-# ... 06 to 08 in order
+python src/06_topics.py
+# ... 07 and 08 in order
 ```
