@@ -52,8 +52,8 @@ Later steps **add columns, keep `review_id`**.
 | `src/04_classifier.py` | TF-IDF + LR / SVM, score 3★ (step 3) | D — Van | `data/processed/` | `outputs/classifier/` |
 | `src/05_sentences.py` | Split complaints into sentences (step 4) | B — Amm | `data/processed/` | `data/processed/complaint_sentences.csv` |
 | `src/06_topics.py` | LDA vs BERTopic, categories (steps 5–6) | E — Gim | `complaint_sentences.csv` | `outputs/topics/` |
-| `src/07_evaluate.py` | Hand-label evaluation (step 7) | F | labeling sheet + topics | `outputs/evaluation/` |
-| `src/08_summaries.py` | Per-category summaries (step 8) | F + E | `outputs/topics/` | `outputs/summaries/` |
+| `src/07_evaluate.py` | Hand-label evaluation (step 7) | F — Toffy | `outputs/topics/sentence_assignments.csv` + filled labeling sheet | `outputs/evaluation/` |
+| `src/08_summaries.py` | Per-category summaries (step 8) | F — Toffy, with E | `outputs/topics/`, `outputs/evaluation/labels_merged.csv` | `outputs/summaries/` |
 
 ## Preprocessing outputs (B — Amm)
 
@@ -249,6 +249,74 @@ The other 23,796 sentences (71.6%) are **Not a complaint**.
   `sentence_assignments.csv` for steps 7–8 so everyone works from the same file.
 - Upload `outputs/topics/` to the Drive **without `cache/`** (≈100 MB of embeddings; it is rebuilt).
 
+## Evaluation and summary outputs (F — Toffy)
+
+### `src/07_evaluate.py` → `outputs/evaluation/`
+Two modes. `sample` builds the labeling sheet, `score` compares the filled sheet with the model.
+`python src/07_evaluate.py demo` runs both on made-up data to check the code.
+
+| file | what it holds |
+|---|---|
+| `labeling_sheet.xlsx` | 120 sentences, one tab per member (20 each) with a category dropdown; no model answer |
+| `labeling_key.csv` | `sample_id` → `sentence_id`, `model_category`, `weight` (kept off the Drive until labeling was done) |
+| `labels_merged.csv` | key + `human_label`, one row per labeled sentence |
+| `metrics.json` | accuracy, macro-F1, population-weighted accuracy, accuracy per annotator |
+| `per_class.csv`, `confusion_matrix.csv` | per-category precision / recall / F1; human (rows) vs model (columns) |
+| `disagreements.csv` | the sentences where human and model differ (examples for the limitations section) |
+
+**Sampling: stratified, not plain random (differs from the guide).** 72% of sentences are
+"Not a complaint" and Cleanliness is 0.4%, so a random 120 would hold about 90 "Not a complaint"
+and maybe no Cleanliness sentence. The sample takes about the same number per **model** category
+(14 each; 12 Order or billing error and 10 Cleanliness, all that the pool has), from **test-split
+reviews only**, seed 42, sentences of at least 8 characters, no duplicates. Each row has a
+`weight` = category size in the pool / number sampled, used to weight the accuracy back to the
+real category mix. `--strategy random` gives the plain random sample.
+
+### Results (120 sentences, 6 labelers, one label per sentence)
+| metric | value |
+|---|---|
+| Accuracy on the stratified sample | 54.2% |
+| Macro-F1 | 0.52 |
+| Population-weighted accuracy | 74.7% |
+| Agreement on complaint vs not a complaint | 89.2% |
+
+Precision per model category (share of sampled sentences where the human chose the same category):
+Cleanliness 90%, Food taste or quality 86%, Not a complaint 79%, Staff behavior 71%,
+Price or value 64%, Slow service or long wait 43%, Other 36%, Atmosphere or facilities 14%,
+Order or billing error 8%.
+
+The model separates complaints from non-complaints well; the weak point is naming the cause for
+the small keyword-matched categories. Order or billing error catches sentences that only mention
+paying (เงิน, จ่าย, เช็คบิล), and Atmosphere or facilities catches โต๊ะ / ร้อน / อุ่น used about food.
+
+### `src/08_summaries.py` → `outputs/summaries/`
+Reads `sentence_assignments.csv`, `categories.csv` and `labels_merged.csv`.
+
+| file | what it holds |
+|---|---|
+| `category_summary.csv` | per complaint category: sentence share, review share, 1★ vs 2★, hand-label precision, top terms, 3 quotes, recommendation |
+| `star_comparison.csv` | share of 1★ and 2★ reviews (and sentences) mentioning each category, and the ratio |
+| `summary.md` | the same as tables and per-category text, ready for report sections 6–7 |
+
+Review share = share of the 2,260 low-star reviews with at least one sentence in the category
+(a review can mention several causes, so it does not sum to 100%).
+
+- Food taste or quality is in 76.8% of low-star reviews, Price or value in 30.2%.
+- Staff behavior (25.1% of 1★ reviews vs 14.5% of 2★) and Slow service (23.6% vs 15.5%) are more
+  typical of 1★ reviews; food and price are about equal at both levels.
+
+### Notes
+- Per-category precision rests on 10–14 sentences each: read it as a tendency, not an exact value.
+- Sampling by model category measures precision directly; recall and macro-F1 are approximate,
+  because the human categories were not sampled evenly.
+- Each sentence has one labeler, so agreement between labelers cannot be measured.
+- Top terms and example quotes in step 8 are E's (`categories.csv`), not recomputed. The
+  recommendations are written by hand in `RECOMMENDATIONS`; categories with precision below 50%
+  are flagged ⚠ in `summary.md`.
+- The dropdown is an inline list: Google Sheets drops dropdowns that point at a hidden sheet.
+- `score` reads every tab except `All`, so a renamed member tab still counts.
+- 07 and 08 need only pandas, scikit-learn and openpyxl.
+
 ## Run everything
 ```bash
 python src/01_prepare_data.py --input data/raw/w_review_train.csv
@@ -257,5 +325,7 @@ python src/03_explore.py
 python src/04_classifier.py
 python src/05_sentences.py
 python src/06_topics.py
-# ... 07 and 08 in order
+python src/07_evaluate.py sample   # then everyone fills outputs/evaluation/labeling_sheet.xlsx
+python src/07_evaluate.py score
+python src/08_summaries.py
 ```
