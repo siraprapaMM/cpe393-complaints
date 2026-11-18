@@ -29,6 +29,7 @@ matplotlib.use("Agg")  # no window needed, just write PNG files
 import matplotlib.pyplot as plt
 import pandas as pd
 from matplotlib import font_manager
+from matplotlib.ticker import PercentFormatter
 
 SPLITS = ["train", "val", "test", "three_star"]
 DPI = 150
@@ -162,14 +163,21 @@ def fig_review_length(data: dict, out: Path):
     # outline + light fill, so the two classes stay readable where they overlap.
     # Reviews longer than the cap are DROPPED from this panel, not clipped into it:
     # clipping would pile the whole long tail into one misleading bar at the edge.
-    style = dict(bins=40, range=(0, cap), density=True, histtype="stepfilled",
-                 alpha=0.30, lw=1.8)
-    ax1.hist(noncomp[noncomp <= cap], color=C_NOT, edgecolor=C_NOT, **style,
+    # Each class is weighted by 1/n of its OWN size, so a bar reads straight off the
+    # axis as "this share of that class" and the two stay comparable even though one
+    # is 11x larger. density=True would instead make the axis a probability density
+    # (area = 1), where a bar of 0.022 actually means 21% of a 9.5-token bin.
+    non_shown, comp_shown = noncomp[noncomp <= cap], comp[comp <= cap]
+    style = dict(bins=40, range=(0, cap), histtype="stepfilled", alpha=0.30, lw=1.8)
+    ax1.hist(non_shown, color=C_NOT, edgecolor=C_NOT, **style,
+             weights=[1 / len(non_shown)] * len(non_shown),
              label=f"not a complaint (median {noncomp.median():.0f})")
-    ax1.hist(comp[comp <= cap], color=C_COMPLAINT, edgecolor=C_COMPLAINT, **style,
+    ax1.hist(comp_shown, color=C_COMPLAINT, edgecolor=C_COMPLAINT, **style,
+             weights=[1 / len(comp_shown)] * len(comp_shown),
              label=f"complaint (median {comp.median():.0f})")
+    ax1.yaxis.set_major_formatter(PercentFormatter(xmax=1))
     ax1.set_xlabel(f"Tokens per review (train; longest 1% above {cap} not shown)")
-    ax1.set_ylabel("Share of reviews")
+    ax1.set_ylabel(f"Share of each class, per {cap / 40:.1f}-token bin")
     ax1.set_title("Review length by class")
     ax1.legend(frameon=False, fontsize=9)
     ax1.spines[["top", "right"]].set_visible(False)
