@@ -19,8 +19,8 @@ Then download `data/splits/*.csv` from the shared Drive folder into `data/splits
 | `notebooks/` | Exploration notebooks (clear outputs before commit) | yes |
 | `data/raw/` | Original Wongnai file | no (Drive) |
 | `data/splits/` | train / val / test / three_star CSVs | no (Drive) |
-| `data/processed/` | Cleaned and tokenized data, sentences | no (Drive) |
-| `outputs/` | Charts, metrics, tables, models | no (Drive) |
+| `data/processed/` | Cleaned and tokenized data, sentences | only `complaint_sentences.csv`; `*_clean.csv` on Drive (too big) |
+| `outputs/` | Charts, metrics, tables (final run) | yes, except `topics/cache/` and model files |
 | `report/` | Report draft and figures | yes |
 
 ## Team rules
@@ -29,7 +29,8 @@ Then download `data/splits/*.csv` from the shared Drive folder into `data/splits
 3. **Seed = 42** everywhere (`random_state=42`).
 4. **Edit only your own files.** Need a change in someone else's? Ask them.
 5. **Commit small, push often** to `main`: `git pull` → work → `git add` → `git commit` → `git push`.
-6. Don't commit data or big outputs — put them in the Drive folder.
+6. Don't commit raw data, splits, `*_clean.csv`, embeddings or model files — put them in the Drive folder.
+   The final `outputs/` and `data/processed/complaint_sentences.csv` are in git so the report's file references work.
 
 ## Data contract
 `data/splits/{train,val,test,three_star}.csv` — columns:
@@ -131,7 +132,7 @@ default 50), `--max-words` (word clouds, default 120).
   matplotlib and wordcloud are enough, and all three are already in requirements.txt.
 - Negation is a separate token, so "ไม่สนิท" shows up as สนิท on its own in fig04.
   Worth a line in the report's limitations.
-- `outputs/` is gitignored: the figures go to the Drive folder, not into git.
+- The final figures are committed in `outputs/figures/` (also on the Drive).
 
 ## Classifier outputs (D — Van)
 
@@ -179,7 +180,7 @@ chosen on **val**, not test. **Test** is scored once per model.
 - Empty `tokens` (`n_tokens = 0`) are filled with `""`; no rows are dropped.
 - For LR, the best C is the top of the grid (100), but val macro-F1 only moves by about 0.001
   between C = 10 and 100, so going higher is not worth the extra run time.
-- `outputs/classifier/` is gitignored: upload the whole folder to the Drive.
+- The final `outputs/classifier/` is committed (also on the Drive).
 
 ## Topic and category outputs (E — Gim)
 
@@ -247,7 +248,7 @@ The other 23,796 sentences (71.6%) are **Not a complaint**.
   different topics and topic numbers; categories are matched by keyword, not topic number, so the
   category list stays the same, but a few sentence assignments may change. Use the Drive copy of
   `sentence_assignments.csv` for steps 7–8 so everyone works from the same file.
-- Upload `outputs/topics/` to the Drive **without `cache/`** (≈100 MB of embeddings; it is rebuilt).
+- `outputs/topics/cache/` (≈100 MB of embeddings) is not committed or uploaded; it is rebuilt.
 
 ## Evaluation and summary outputs (F — Toffy)
 
@@ -316,6 +317,24 @@ Review share = share of the 2,260 low-star reviews with at least one sentence in
 - The dropdown is an inline list: Google Sheets drops dropdowns that point at a hidden sheet.
 - `score` reads every tab except `All`, so a renamed member tab still counts.
 - 07 and 08 need only pandas, scikit-learn and openpyxl.
+
+## What is in this repository
+
+The report refers to files by their repo path. These are committed from the team's final run
+(the Drive copy, which the 120 hand labels were drawn from):
+
+| Path | Contents |
+|---|---|
+| `outputs/figures/` | Exploration charts (fig01–fig06) and `report/` figures used in the report |
+| `outputs/classifier/` | Model comparison, tuning, confusion matrices, top features, 3★ predictions |
+| `outputs/topics/` | LDA grid, BERTopic topics, topic → category mapping, `sentence_assignments.csv` |
+| `outputs/evaluation/` | Labeling sheet with the team's labels, metrics, per-class scores, disagreements |
+| `outputs/summaries/` | `summary.md`, category and 1★ vs 2★ tables |
+| `data/processed/complaint_sentences.csv` | The 33,246 sentences from the 2,260 complaint reviews |
+
+Not committed: `data/raw/`, `data/splits/` and `data/processed/*_clean.csv` (about 200 MB; rebuild with
+`01_prepare_data.py` and `02_clean.py`, or download from the Drive). Review text comes from the
+[Wongnai Corpus](https://github.com/wongnai/wongnai-corpus) (LGPL-3.0).
 
 ## Run everything
 ```bash

@@ -1,0 +1,56 @@
+﻿sample_id,annotator,sentence_id,review_id,split,sentence_raw,model_category,weight,human_label
+004,MM,32016,23206,test,- พอร์คชอป (295 บาท) หมูแข็งมาก,Price or value,5.285714285714286,Food taste or quality
+006,MM,30442,2715,test,แต่ถ้าบริการแย่,Staff behavior,3.642857142857143,Other
+009,MM,31672,16749,test,เราว่าสูตรเค้าอาจจะแบบไม่กรอบมั้ง,Other,16.285714285714285,Food taste or quality
+010,MM,31970,22850,test,เฮ้อ*เสียดายเงิน,Order or billing error,1.0,Other
+013,MM,32598,29990,test,"มาถึงร้านมีพนักงานรับออเดอร์ท่านนึง เป็นสุภาพสตรีวัยกลางคน เดินมาสอบถามว่ารับเมนูอะไรและพูดประโยคแบบห้วนๆว่า ""ที่นี่มี lobster นะ400กว่าบาทเอง"" เราก็สั่งเมนูอื่นไปจนถึงพี่ชายเราสั่ง ลวกจิ้มลูกชิ้นปลากราย",Not a complaint,168.0,Staff behavior
+014,MM,32352,27708,test,ไม่อร่อยเหมือนที่เคยกินจากร้านอื่นๆมา,Other,16.285714285714285,Food taste or quality
+015,MM,32216,26434,test,ไม่แน่ว่านี่คือจุดที่ทำให้ได้ช้ากว่าโต๊ะอื่นหรือเปล่า,Atmosphere or facilities,1.0,Slow service or long wait
+016,MM,30873,6094,test,โดยรวมแล้ว เป็นร้านที่พอใช้ได้,Atmosphere or facilities,1.0,Not a complaint
+017,MM,31744,20056,test,เรียกเก็บเงินช้ามาก.,Order or billing error,1.0,Slow service or long wait
+020,MM,30626,4343,test,ไม่เสียดายเงินนะคะ,Order or billing error,1.0,Not a complaint
+021,Amm,32175,25571,test,เราก็ถือตะเกียบค้างไว้ยังงั้น เลยเรียกพนักงานอีกคนมาถามว่ามันเกิดอะไรขึ้น,Staff behavior,3.642857142857143,Not a complaint
+023,Amm,32928,35906,test,ขอดูบิลก้ไม่เอามาให้,Other,16.285714285714285,Staff behavior
+024,Amm,33188,39211,test,เพลงจบ 2 เพลง) ไม่เอาเมนูมาให้ ขาดการใส่ใจ,Slow service or long wait,2.2857142857142856,Staff behavior
+029,Amm,33197,39230,test,ร้านนี้เนื่องจากอยากจะกินซีฟู้ดแบบจัดเต็มเคยมากินแล้วหลายครั้งติดใจแต่มาวันนี้ขออนุญาตให้หนึ่งดาวเนื่องจากผิดหวังกับการบริการวันนี้ไม่ได้กินนะครับเนื่องจากทนไม่ไหวจริงๆออกจากร้านก่อนวันนี้มาถึงร้านตอนประมาณช่วงเที่ยงเที่ยงไม่มีแขกซักโต๊ะเข้ามาเป็นคนแรกเข้ามาได้สักพัก พนักงานในร้านก็เห็นแล้วพนักงานผู้ชายนั่งกดโทรศัพท์แล้วตะโกนไปเรียกพนักงานผู้หญิงอีกคนว่าแขกเข้าแต่ตัวเองนั่งกดโทรศัพท์ต่อผ่านไป 5 นาทีผู้หญิงคนนั้นก็ไม่มาต้อนรับแต่อย่างใดก็ปล่อยให้เรางงอยู่อย่างนั้น,Slow service or long wait,2.2857142857142856,Staff behavior
+030,Amm,31975,22998,test,การมาครั้งนี้คนน้อยมากไม่แน่ใจว่าเพราะวันอาทิตย์หรือเพราะคนเริ่มไม่ฮือฮาเหมือนแรกๆแล้วว่าเป็นร้านดารา,Atmosphere or facilities,1.0,Other
+032,Amm,31328,12960,test,พอเข้าไปก็แจ้งพนักงานเลยว่าบุฟเฟต์ 3 ท่าน และก็เดินตักอาหารได้เลย,Slow service or long wait,2.2857142857142856,Not a complaint
+033,Amm,32210,26434,test,พิซซ่าก็ยังไม่มา,Food taste or quality,20.428571428571427,Slow service or long wait
+034,Amm,31118,9716,test,เส้นก็ไม่ร้อน,Atmosphere or facilities,1.0,Food taste or quality
+037,Amm,30145,779,test,สั่งอาหารมา4อย่าง ได้เร็วเพราะตอนที่สั่งไม่มีโต๊ะอื่น,Other,16.285714285714285,Not a complaint
+038,Amm,31521,15531,test,โดยรวมถ้าเทียบของที่ได้กับราคาแล้วดูจะแพงไปมาก,Price or value,5.285714285714286,Food taste or quality
+044,Pang,33156,38718,test,จึงส่งออกมาพร้อมกับความเลี่ยน ส่วนตัวผมว่ารสชาติต่างไปจากเมื่อก่อนเยอะมาก,Other,16.285714285714285,Food taste or quality
+046,Pang,32761,33588,test,ไม่มีการอุ่นร้อน,Atmosphere or facilities,1.0,Food taste or quality
+048,Pang,31088,9242,test,อมน้ำมันแถมยังไหม้,Atmosphere or facilities,1.0,Food taste or quality
+050,Pang,30299,1632,test,นั่งมองเด็กเสร็ฟเดินไปแล้วก็เดินมาไม่มีอะไรเกิดขึ้น,Other,16.285714285714285,Slow service or long wait
+052,Pang,32839,34502,test,เด็กเสิฟก็บอกว่า หนูเห็นแล้วแหละว่าพี่น่าจะกินไม่ได้,Other,16.285714285714285,Food taste or quality
+054,Pang,31304,11751,test,ผิดหวังกับการจัดการของทางร้านในการแก้ปัญหาด้วย,Staff behavior,3.642857142857143,Atmosphere or facilities
+057,Pang,30207,1056,test,ไม่เหมือนทุกครั้งที่มา,Not a complaint,168.0,Other
+060,Pang,31224,10743,test,แต่สาขานี้ไม่ไหวกับการบริการจริงๆครับ,Staff behavior,3.642857142857143,Atmosphere or facilities
+061,Van,31331,12960,test,แต่สำหรับอาหารอยากจะบอกว่า ไลน์อาหารน้อยมากกกกก,Slow service or long wait,2.2857142857142856,Atmosphere or facilities
+064,Van,32749,33440,test,ทั้งที่ในร้านก็มีลูกค้าแค่3โต๊ะ เห็นมีพนักงานนั่งว่างอยู่ด้วย,Atmosphere or facilities,1.0,Other
+065,Van,30098,288,test,ท็อฟฟี่แจกหลังจ่ายเงินก็แย่ค่ะ.,Order or billing error,1.0,Other
+073,Van,32147,25085,test,อีกสักพักมีพนักงานเดินมาถาม พี่สั่งสุกี้อะไรนะคะ,Not a complaint,168.0,Staff behavior
+076,Van,32213,26434,test,และที่ไม่ประทับใจคือ โต๊ะมาทีหลังได้ก่อนถึง 2 โต๊ะ,Atmosphere or facilities,1.0,Slow service or long wait
+079,Van,30363,2132,test,อาหารไม่ค่อยหลากหลาย,Slow service or long wait,2.2857142857142856,Atmosphere or facilities
+080,Van,31370,12960,test,ยังไม่รวม Vat นะคะ ถ้ารวมก็ 200 นิดๆ จ้า,Price or value,5.285714285714286,Other
+081,Gim,31618,16415,test,เหมือนครั้งที่แล้วที่ยังพอเล่นได้บ้างแต่ก็ช้ามาก,Slow service or long wait,2.2857142857142856,Atmosphere or facilities
+083,Gim,33015,36095,test,ห้องน้ำ: แย่ และแน่มานาน,Cleanliness,1.0,Atmosphere or facilities
+084,Gim,30059,202,test,นี้อาหารค่อนข้างน้อย,Slow service or long wait,2.2857142857142856,Price or value
+085,Gim,31341,12960,test,มันเหมือนไม่ร้อน,Atmosphere or facilities,1.0,Food taste or quality
+088,Gim,30357,2066,test,แถมยังตัวเล็กนิดเดียวอีก,Price or value,5.285714285714286,Food taste or quality
+089,Gim,32150,25085,test,จ่ายตังแล้วรีบออกจากร้านสิ รออะไร,Order or billing error,1.0,Other
+091,Gim,30943,6369,test,อีกแป๊บก็เดินมาบอกว่าหมดเลยเปลี่ยนเมนูสั่ง,Slow service or long wait,2.2857142857142856,Other
+092,Gim,30233,1326,test,ตั้งใจไว้ว่าร้านนี้น่าจะอร่อยเรื่องอาหารฟิวชั่น หรืออาหารอินเตอร์ แต่ไม่รู้เพราะสั่งผิดเมนูรึเปล่า แต่ต้องบอกว่าร้านนี้ไม่อร่อยเลย,Other,16.285714285714285,Food taste or quality
+096,Gim,33126,37733,test,ถ้าไม่ได้ก็ควรบอกแต่แรก เพราะแค่ติดฝน จะอาศัยชาตแค่เพียงแปปเดียวเท่านั้นเพื่อใช้ติดต่อเรื่องสำคัญ เงิบเลย เหลือ 19% เลยมาพิมรีวิวให้ค่า :),Order or billing error,1.0,Staff behavior
+098,Gim,31217,10675,test,ไม่กล้าสั่งกลัวเสียดายเงิน,Other,16.285714285714285,Price or value
+101,Toffy,32719,32053,test,ไม่ค่อยเติม ...,Price or value,5.285714285714286,Staff behavior
+105,Toffy,30787,5215,test,พกเงินไปน้อย,Order or billing error,1.0,Not a complaint
+106,Toffy,32371,27918,test,เสียดายเงินมากๆ,Order or billing error,1.0,Price or value
+107,Toffy,32847,34520,test,ไม่รู้เพราะช่วงเทศกาลคนเยอะเตรียมไม่ทันหรือเปล่า,Atmosphere or facilities,1.0,Not a complaint
+108,Toffy,31286,11674,test,ตอนจะจ่ายเงิน,Order or billing error,1.0,Not a complaint
+110,Toffy,30542,3714,test,เห็นร้านตกแต่งสวยงาม,Atmosphere or facilities,1.0,Not a complaint
+116,Toffy,31547,15796,test,เสียดายเงินมาก,Order or billing error,1.0,Price or value
+117,Toffy,30132,730,test,สมัยก่อนไม่มีใครทำหมูตุ๋นครับมีแต่เนื้อตุ๋น รสชาดกินได้ครับ,Food taste or quality,20.428571428571427,Not a complaint
+118,Toffy,33184,39211,test,นี่ไม่รับออเดอร์ พนักงานเดินชมลานจอดรถ,Atmosphere or facilities,1.0,Staff behavior
+120,Toffy,31551,15796,test,ถุง ขนาดเล็กธรรมดาเครื่องอย่างอื่นไม่มี คนซื้อคนนั้นถึงกะบอก แค่นี้น่ะหรอ,Order or billing error,1.0,Price or value

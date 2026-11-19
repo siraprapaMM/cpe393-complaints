@@ -1,0 +1,3 @@
+model,word_ngram,char_ngram,C,val_macro_f1_default_thr,threshold,val_macro_f1_tuned_thr
+lr,"(1, 3)","(3, 5)",100.0,0.8588,-0.6997,0.8626
+svm,"(1, 2)","(3, 5)",0.3,0.8631,-0.0118,0.8643

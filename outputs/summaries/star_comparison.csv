@@ -1,0 +1,9 @@
+﻿category,sent_share_1star,sent_share_2star,review_share_1star,review_share_2star,ratio_1star_vs_2star
+Order or billing error,0.0189,0.0123,0.0819,0.0428,1.9134
+Staff behavior,0.0756,0.0485,0.2506,0.1453,1.7252
+Slow service or long wait,0.0662,0.0478,0.2361,0.155,1.5234
+Other,0.3582,0.3214,0.7807,0.7014,1.1132
+Cleanliness,0.0126,0.0122,0.0506,0.0455,1.1114
+Atmosphere or facilities,0.0221,0.0249,0.0843,0.0916,0.9207
+Food taste or quality,0.3634,0.4333,0.7157,0.7794,0.9182
+Price or value,0.083,0.0995,0.2795,0.3073,0.9095

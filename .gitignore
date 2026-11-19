@@ -1,11 +1,13 @@
-# Data and outputs live in the shared Google Drive, not in git
+# Raw data, splits and cleaned files live in the shared Google Drive (too big for git).
+# Final outputs and the complaint sentences are committed so the report's references resolve.
 data/**
 !data/**/
 !data/**/.gitkeep
-outputs/**
-!outputs/.gitkeep
+!data/processed/complaint_sentences.csv
+outputs/topics/cache/
 *.pkl
 *.joblib
+desktop.ini
 
 # Python / Jupyter
 __pycache__/

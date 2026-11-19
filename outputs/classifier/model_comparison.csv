@@ -1,0 +1,9 @@
+model,split,threshold,threshold_value,macro_f1,macro_precision,macro_recall,complaint_f1,complaint_precision,complaint_recall,accuracy
+Logistic Regression,val,default (0),0.0,0.8588,0.8981,0.8278,0.7384,0.8251,0.6681,0.9615
+Logistic Regression,val,tuned on val,-0.6997,0.8626,0.8663,0.8589,0.7472,0.7557,0.7389,0.9594
+Logistic Regression,test,default (0),0.0,0.8736,0.9134,0.8421,0.7659,0.8533,0.6947,0.9655
+Logistic Regression,test,tuned on val,-0.6997,0.8781,0.8913,0.8659,0.7752,0.8048,0.7478,0.9648
+Linear SVM,val,default (0),0.0,0.8631,0.8879,0.8419,0.747,0.802,0.6991,0.9615
+Linear SVM,val,tuned on val,-0.0118,0.8643,0.8852,0.846,0.7494,0.796,0.708,0.9615
+Linear SVM,test,default (0),0.0,0.8744,0.9009,0.8518,0.7678,0.8265,0.7168,0.9648
+Linear SVM,test,tuned on val,-0.0118,0.8724,0.8967,0.8514,0.7642,0.8182,0.7168,0.9641

@@ -1,0 +1,13 @@
+﻿,precision,recall,f1-score,support
+Atmosphere or facilities,0.143,0.25,0.182,8.0
+Cleanliness,0.9,1.0,0.947,9.0
+Food taste or quality,0.857,0.5,0.632,24.0
+Not a complaint,0.786,0.524,0.629,21.0
+Order or billing error,0.083,1.0,0.154,1.0
+Other,0.357,0.357,0.357,14.0
+Price or value,0.643,0.643,0.643,14.0
+Slow service or long wait,0.429,0.545,0.48,11.0
+Staff behavior,0.714,0.556,0.625,18.0
+accuracy,0.542,0.542,0.542,0.542
+macro avg,0.546,0.597,0.516,120.0
+weighted avg,0.65,0.542,0.575,120.0

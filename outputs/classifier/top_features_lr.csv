@@ -1,0 +1,101 @@
+﻿feature_type,class,rank,feature,coef
+word,complaint,1,ไม่ อร่อย,15.5046
+word,complaint,2,แย่,11.513
+word,complaint,3,ไม่,10.9879
+word,complaint,4,จืด,9.1843
+word,complaint,5,ไม่ ประทับใจ,7.5445
+word,complaint,6,แข็ง,7.2349
+word,complaint,7,ไม่ค่อย,7.0836
+word,complaint,8,รสชาติ ธรรมดา,7.0085
+word,complaint,9,แย่มาก,6.8208
+word,complaint,10,ไม่ สด,6.7748
+word,complaint,11,ไม่ อร่อย เลย,6.5018
+word,complaint,12,พอใช้ได้,6.0833
+word,complaint,13,ไม่ค่อย อร่อย,6.0087
+word,complaint,14,ปรับปรุง,5.8606
+word,complaint,15,เสียความรู้สึก,5.6111
+word,complaint,16,ดีกว่า,5.6044
+word,complaint,17,น้อย มาก,5.5326
+word,complaint,18,ไม่ คุ้ม,5.4721
+word,complaint,19,สรุป,5.2752
+word,complaint,20,เค็ม,5.1575
+word,complaint,21,ไม่ แนะนำ,5.0315
+word,complaint,22,พนักงาน,4.9778
+word,complaint,23,ไม่ หอม,4.8987
+word,complaint,24,ผิดหวัง มาก,4.5937
+word,complaint,25,น้อย,4.3558
+word,not_complaint,1,อร่อย,-10.6013
+word,not_complaint,2,ชอบ,-10.1689
+word,not_complaint,3,ไม่ ผิดหวัง,-8.3194
+word,not_complaint,4,อร่อย มาก,-6.294
+word,not_complaint,5,ดีมาก,-6.0973
+word,not_complaint,6,เด็ด,-6.0718
+word,not_complaint,7,555,-5.9203
+word,not_complaint,8,ฟิน,-5.4961
+word,not_complaint,9,นุ่ม,-5.4581
+word,not_complaint,10,รสชาติ ดี,-5.1686
+word,not_complaint,11,รสชาติ อร่อย,-4.9348
+word,not_complaint,12,ไม่ แพง,-4.7727
+word,not_complaint,13,หอม,-4.7289
+word,not_complaint,14,กำลังดี,-4.0355
+word,not_complaint,15,ชอบ มาก,-4.034
+word,not_complaint,16,ดีงาม,-3.8881
+word,not_complaint,17,คิว,-3.6078
+word,not_complaint,18,อร่อย ดี,-3.5975
+word,not_complaint,19,อิ่ม,-3.5882
+word,not_complaint,20,กลมกล่อม,-3.5742
+word,not_complaint,21,แนะนำ,-3.5202
+word,not_complaint,22,อาหาร อร่อย,-3.4816
+word,not_complaint,23,ไม่ หวาน มาก,-3.3441
+word,not_complaint,24,ไม่ต้อง,-3.3148
+word,not_complaint,25,ที่นี่,-3.2624
+char,complaint,1,ม่อร,6.6152
+char,complaint,2,ไม่อร,6.5812
+char,complaint,3,ม่อร่,6.461
+char,complaint,4,แย่,6.2661
+char,complaint,5, ไม,5.1794
+char,complaint,6, ไม่,5.1054
+char,complaint,7,ไม่ส,4.9591
+char,complaint,8,เฉย,4.8979
+char,complaint,9,ม่ส,4.6133
+char,complaint,10, คง,4.4666
+char,complaint,11,ไม่ผ่,4.4174
+char,complaint,12,ม่ผ่,4.4174
+char,complaint,13,ม่ผ่า,4.4174
+char,complaint,14,ไม่,4.3615
+char,complaint,15,งไม,4.2233
+char,complaint,16,งไม่,4.149
+char,complaint,17,ไม่โ,3.9863
+char,complaint,18,ม่ค,3.8606
+char,complaint,19,เสี,3.7909
+char,complaint,20,ม่โ,3.7873
+char,complaint,21,จืด,3.7651
+char,complaint,22,ไม่ค,3.7457
+char,complaint,23,คงไ,3.7042
+char,complaint,24,ไม่ป,3.592
+char,complaint,25,คงไม่,3.5439
+char,not_complaint,1, อร่,-5.7208
+char,not_complaint,2, อร่อ,-5.7197
+char,not_complaint,3, อร,-5.7182
+char,not_complaint,4,อร่อ,-4.857
+char,not_complaint,5,ร่อ,-4.8399
+char,not_complaint,6,อร่,-4.8268
+char,not_complaint,7,อร่อย,-4.826
+char,not_complaint,8,ร่อย,-4.767
+char,not_complaint,9,ชอบ,-4.4765
+char,not_complaint,10, ชอบ,-3.5991
+char,not_complaint,11, ชอ,-3.4821
+char,not_complaint,12,ด็ด,-3.3517
+char,not_complaint,13,็อร,-3.3351
+char,not_complaint,14,ก็อร,-3.3304
+char,not_complaint,15,็อร่,-3.3169
+char,not_complaint,16,็อร่อ,-3.314
+char,not_complaint,17,ก็อร่,-3.3123
+char,not_complaint,18,เด็ด,-3.3088
+char,not_complaint,19,55 ,-3.1279
+char,not_complaint,20,ร่อยม,-3.1112
+char,not_complaint,21,ม่ผิ,-3.0863
+char,not_complaint,22,ม่ผิด,-3.0863
+char,not_complaint,23,ไม่ผิ,-3.0597
+char,not_complaint,24,่อยม,-3.0434
+char,not_complaint,25,ดี ,-2.9811

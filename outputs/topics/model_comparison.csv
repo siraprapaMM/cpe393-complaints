@@ -1,0 +1,4 @@
+﻿model,n_topics,c_v,c_npmi,diversity,unassigned_share
+LDA (K=8),8,0.4426,0.0042,1.0,0.0158
+BERTopic,100,0.378,-0.2166,0.876,0.3538
+BERTopic reduced to K=8,8,0.3879,-0.1187,0.975,0.3538

@@ -1,0 +1,6 @@
+,precision,recall,f1-score,support
+not_complaint,0.9778,0.984,0.9809,2557.0
+complaint,0.8048,0.7478,0.7752,226.0
+accuracy,0.9648,0.9648,0.9648,0.9648
+macro avg,0.8913,0.8659,0.8781,2783.0
+weighted avg,0.9638,0.9648,0.9642,2783.0

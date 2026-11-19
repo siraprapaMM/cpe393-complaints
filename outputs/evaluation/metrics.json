@@ -1,0 +1,16 @@
+{
+  "n_scored": 120,
+  "accuracy": 0.5417,
+  "macro_f1": 0.5165,
+  "weighted_f1": 0.5752,
+  "population_weighted_accuracy": 0.7467,
+  "population_weighted_macro_f1": 0.4835,
+  "per_annotator_accuracy": {
+    "Amm": 0.5,
+    "Gim": 0.5,
+    "MM": 0.5,
+    "Pang": 0.6,
+    "Toffy": 0.5,
+    "Van": 0.65
+  }
+}
